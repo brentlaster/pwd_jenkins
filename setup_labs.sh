@@ -4,7 +4,7 @@
 docker pull bclaster/dc_jenkins:1.5
 
 # start the image running
-docker run -p 8080:8080 --env JAVA_OPTS="-Dhudson.Main.development=true -Djenkins.install.runSetupWizard=false" bclaster/dc_jenkins:1.5 &
+docker service create -e JAVA_OPTS="-Dhudson.Main.development=true -Djenkins.install.runSetupWizard=false" -p 8080 --mount type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock  --name jenkins_lab bclaster/dc_jenkins:1.5
 
 # grab the gradle version
 wget https://services.gradle.org/distributions/gradle-3.4.1-bin.zip

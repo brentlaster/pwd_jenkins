@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# change permissions on docker.sock to simplify setup
+chmod 777 /run/docker.sock
+
 # pull down the necessary image
 docker pull bclaster/dc_jenkins:1.5
 
@@ -12,8 +15,5 @@ wget https://services.gradle.org/distributions/gradle-3.4.1-bin.zip
 # put the gradle version in place
 sudo unzip -d /usr/share gradle-3.4.1-bin.zip
 
-# determine the container name
-cId=`docker ps | cut -d' ' -f1 | head -n 2 | grep -v CONTAINER`
-
 # copy the key out for ease of access
-docker cp $cId:/var/jenkins_home/.ssh/id_rsa.pub .
+cp /root/pwd_jenkins/id_rsa.pub /root/id_rsa.pub
